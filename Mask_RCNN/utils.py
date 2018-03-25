@@ -16,7 +16,7 @@ import tensorflow as tf
 import scipy.misc
 import skimage.color
 import skimage.io
-import urllib.request
+import urllib
 import shutil
 
 # URL from which to download the latest COCO trained weights
