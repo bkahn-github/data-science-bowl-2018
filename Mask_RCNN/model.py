@@ -30,6 +30,10 @@ import keras.models as KM
 
 import utils
 
+def fullmatch(regex, string, flags=0):
+    """Emulate python-3.4 re.fullmatch()."""
+    return re.match("(?:" + regex + r")\Z", string, flags=flags)
+
 # Requires TensorFlow 1.3+ and Keras 2.0.8+.
 from distutils.version import LooseVersion
 assert LooseVersion(tf.__version__) >= LooseVersion("1.3")
@@ -2119,7 +2123,8 @@ class MaskRCNN():
                 continue
             # Is it trainable?
 #             trainable = bool(re.fullmatch(layer_regex, layer.name))
-            trainable = bool(re.match(layer_regex, layer.name))
+#             trainable = bool(re.match(layer_regex, layer.name))
+            trainable = bool(fullmatch(layer_regex, layer.name))
             # Update layer. If layer is a container, update inner layer.
             if layer.__class__.__name__ == 'TimeDistributed':
                 layer.layer.trainable = trainable
@@ -2401,7 +2406,7 @@ class MaskRCNN():
         for p in parents:
             if p in checked:
                 continue
-            if bool(re.fullmatch(name, p.name)):
+                if bool(fullmatch(name, p.name)):
                 return p
             checked.append(p)
             a = self.ancestor(p, name, checked)
