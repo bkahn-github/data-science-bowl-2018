@@ -49,8 +49,8 @@ parameters:
 # General Params
 #  image_h: 512
 #  image_w: 512
-  image_h: 8
-  image_w: 8
+  image_h: 16
+  image_w: 16
   image_channels: 3
 
 # U-Net parameters
